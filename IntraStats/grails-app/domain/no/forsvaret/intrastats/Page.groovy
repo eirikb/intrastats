@@ -10,7 +10,7 @@ class Page {
     Date lastUpdated
 
     static constraints = {
-        title(nullable: false)
+        title(nullable: true)
         url(nullable: false, url: true, unique: true)
     }
 }

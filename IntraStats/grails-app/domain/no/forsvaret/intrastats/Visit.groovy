@@ -7,10 +7,17 @@ class Visit {
     String referral
     Date dateCreated
     Date lastUpdated
-    String ip
+    String remoteAddress
+    String remoteHost
+    Page page
     int browserWidth
     int browserHeight
 
     static constraints = {
+        referral(nullable: true)
+        remoteAddress(nullable: true)
+        remoteHost(nullable: true)
+        browserWidth(nullable: true)
+        browserHeight(nullable: true)
     }
 }
