@@ -12,6 +12,7 @@ class PageVisitController {
             }
         } else {
             response.outputStream << "Must have valid url (?url=http://www.google.com)"
+            response.outputStream << "\nValid params: url, title, referral, browserWidth, browserHeight"
         }
     }
 
