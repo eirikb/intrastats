@@ -10,9 +10,10 @@ class PageController {
 
     def list = {
         params.max = Math.min(params.max ? params.int('max') : 10, 100)
-        println params.sort
+        def sorting = params.sort != null ? " order by " + params.sort : ""
+        sorting += params.order != null ? " " + params.order : ""
         def pages = Page.executeQuery("select id, url, title, dateCreated, lastUpdated, \
-            visits.size from Page order by " + params.sort + ' ' + params.order)
+            visits.size from Page" + sorting)
         [pageInstanceList: pages, pageInstanceTotal: Page.count(),
             visits:pages]
     }
