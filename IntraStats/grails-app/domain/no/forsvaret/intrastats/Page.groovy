@@ -10,6 +10,6 @@ class Page {
 
     static constraints = {
         title(nullable: true)
-        url(nullable: false, url: true, unique: true)
+        url(nullable: false, unique: true)
     }
 }
