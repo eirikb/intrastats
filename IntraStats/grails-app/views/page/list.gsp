@@ -34,7 +34,7 @@
             <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[0]}</g:link></td>
           <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[1]}</g:link></td>
           <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[2]}</g:link></td>
-          <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[3]}</g:link></td>
+          <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[4]}</g:link></td>
           <td><g:formatDate date="${pageInstance[3]}" /></td>
           </tr>
         </g:each>
