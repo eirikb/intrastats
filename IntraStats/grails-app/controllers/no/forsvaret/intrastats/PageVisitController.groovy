@@ -3,13 +3,18 @@ package no.forsvaret.intrastats
 class PageVisitController {
 
     def output
+    def timeOut = 1000 * 60 * 30
 
     def index = {
         output = ""
         if (params.url != null) {
             def page = getPage(params.url, params.title)
             if (page != null) {
-                registerVisit(page, params.referral, params.browserWidth, params.browserHeight)
+                def referral = null
+                if (params.referral != null) {
+                    referral = getPage(params.referral, null)
+                }
+                registerVisit(page, referral, params.browserWidth, params.browserHeight)
             } else {
                 output += "Page was null, dunnolol"
             }
@@ -33,9 +38,10 @@ class PageVisitController {
 
     def registerVisit(page, referral, browserWidth, browserHeight) {
         if (session["visits"] == null) {
-            session["visits"] = []
+            session["visits"] = [:]
         }
-        if (!session["visits"].contains(page.id)) {
+        def time = session["visits"].get(page.id)
+        if (time == null || System.currentTimeMillis() - time > timeOut) {
             def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
             if (client != null) {
                 def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
@@ -44,12 +50,12 @@ class PageVisitController {
                     if (page.addToVisits(visit).save() &&
                         client.addToVisits(visit).save()) {
                         output += "OK"
-                        session["visits"] << page.id
+                        session["visits"].put(page.id, System.currentTimeMillis())
                     } else  {
                         output += "Linking between Client, Visit and Page failed!"
                     }
                 } else {
-                    output += "\nVisit did not validate..."
+                    output += "Visit did not validate..."
                 }
             } else {
                 output += "Could not initalize client..."
@@ -84,7 +90,7 @@ class PageVisitController {
                 errors += '\n' + it
             }
             object = null
-            output += errors
+            output += errors + '\n'
             return false
         }
         return true

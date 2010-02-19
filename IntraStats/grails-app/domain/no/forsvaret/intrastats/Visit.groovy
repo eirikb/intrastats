@@ -4,9 +4,8 @@ class Visit {
 
     static belongsTo = [page : Page]
 
-    String referral
+    Page referral
     Date dateCreated
-    Date lastUpdated
     Page page
     Client client
     Integer browserWidth
