@@ -69,7 +69,6 @@ class PageVisitController {
         def client = Client.findWhere(remoteAddress:remoteAddress, remoteHost:remoteHost, userAgent:userAgent)
         if (client == null) {
             client = new Client(remoteAddress:remoteAddress, remoteHost:remoteHost, userAgent:userAgent)
-            println "test"
             if (validate(client)) {
                 client.save()
                 return client

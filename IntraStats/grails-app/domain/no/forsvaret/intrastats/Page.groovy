@@ -7,7 +7,6 @@ class Page {
     String title
     String url
     Date dateCreated
-    Date lastUpdated
 
     static constraints = {
         title(nullable: true)

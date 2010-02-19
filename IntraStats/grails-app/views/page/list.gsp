@@ -10,7 +10,6 @@
 <body>
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
-    <span class="menuButton"><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]" /></g:link></span>
   </div>
   <div class="body">
     <h1><g:message code="default.list.label" args="[entityName]" /></h1>
@@ -26,7 +25,6 @@
         <g:sortableColumn property="title" title="${message(code: 'page.title.label', default: 'Title')}" />
         <g:sortableColumn property="visits.size" title="${message(code: 'page.url.label', default: 'Visits')}" />
         <g:sortableColumn property="dateCreated" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
-        <g:sortableColumn property="lastUpdated" title="${message(code: 'page.lastUpdated.label', default: 'Last Updated')}" />
         </tr>
         </thead>
         <tbody>
@@ -36,9 +34,8 @@
             <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[0]}</g:link></td>
           <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[1]}</g:link></td>
           <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[2]}</g:link></td>
-          <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[5]}</g:link></td>
+          <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[3]}</g:link></td>
           <td><g:formatDate date="${pageInstance[3]}" /></td>
-          <td><g:formatDate date="${pageInstance[4]}" /></td>
           </tr>
         </g:each>
         </tbody>
