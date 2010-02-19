@@ -8,7 +8,7 @@ class PageVisitController {
     def index = {
         output = ""
         if (params.url != null) {
-            def page = getPage(params.url, params.title)
+            def page = getPage(params.url?.decodeHTML(), params.title)
             if (page != null) {
                 def referral = null
                 if (params.referral != null) {
@@ -22,6 +22,7 @@ class PageVisitController {
             output += "Must have valid url (?url=http://www.google.com)"
             output += "\nValid params: url, title, referral, browserWidth, browserHeight"
         }
+        output = params.jsoncallback + "({\"output\" : \"" + output + "\"})"
         response.outputStream << output
     }
 
@@ -31,6 +32,8 @@ class PageVisitController {
             page = new Page(url:params.url, title:params.title)
             if (validate(page)) {
                 page.save()
+            } else {
+                return null
             }
         }
         return page
@@ -82,16 +85,20 @@ class PageVisitController {
     }
 
     def validate(object) {
-        object.validate()
-        if(object.hasErrors()) {
-            def errors = "Errors while creating " + object + ":"
-            object.errors.each {
-                errors += '\n' + it
+        if (object != null) {
+            object.validate()
+            if(object.hasErrors()) {
+                def errors = "Errors while creating " + object + ":"
+                object.errors.each {
+                    errors += '\n' + it
+                }
+                object = null
+                output += errors + '\n'
+                return false
             }
-            object = null
-            output += errors + '\n'
+            return true
+        } else {
             return false
         }
-        return true
     }
 }
