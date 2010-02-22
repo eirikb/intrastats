@@ -50,7 +50,7 @@ h1#header {
 	text-decoration: none;
 }
 #container ul li a:hover {
-	text-decoration: underline;
+	text-decoration: none;
 	background: rgba(255,255,255,0.1);
 	border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -79,8 +79,8 @@ $(function(){
 <div id="container">
 	<h2>x visits today</h2>
 	<ul>
-		<g:each var="c" in="${grailsApplication.controllerClasses}">
-			<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+            <g:each var="c" in="${grailsApplication.controllerClasses}">
+			<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.name}</g:link></li>
 	    </g:each>
 	</ul>
 </div>
