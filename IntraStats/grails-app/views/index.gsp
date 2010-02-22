@@ -82,6 +82,7 @@
       <ul>
         <li class="controller"><g:link controller="Page">Sections</g:link></li>
         <li class="controller"><g:link controller="Page">Pages</g:link></li>
+        <li class="controller"><g:link url="Example.html">Example (How to)</g:link></li>
       </ul>
     </div>
   </body>
