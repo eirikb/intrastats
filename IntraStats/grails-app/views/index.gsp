@@ -1,104 +1,88 @@
-<html>
-    <head>
-        <title>Welcome to Grails</title>
-		<meta name="layout" content="main" />
-		<style type="text/css" media="screen">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>intraStats <g:meta name="app.version"></g:meta></title>
+<style type="text/css" media="screen">
+body {
+	background: #ddd url(bg.png);
+	font-size: 1.3em;
+	font-family: "Helvetica", Helvetica, sans-serif;
+}
+h1, h2 {
+	text-align: center;
+}
+h1#header {
+	text-indent: -9999px;
+	width: 300px;
+	height: 50px;
+	display: block;
+	margin: 80px auto -10px auto;
+	background: url(header.png);
+	padding: 0;
+}
+#container {
+	margin: 0 auto;
+	background: url(content-bg.png);
+	width: 300px;
+	height: 300px;
+}
+#container h2 {
+	padding: 25px 0 20px 0;
+	color: #fff;
+	font-size: 25px;
+}
+#container ul {
+	padding: 0;
+	margin: 0;
+}
+#container ul li {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	text-align: center;
+}
+#container ul li a {
+	display: inline-block;
+	margin: 0;
+	padding: 10px;
+	text-decoration: none;
+}
+#container ul li a:hover {
+	text-decoration: underline;
+	background: rgba(255,255,255,0.1);
+	border-radius: 3px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	box-shadow: 0 0 10px rgba(0,0,0,0.04);
+	-webkit-box-shadow: 0 0 10px rgba(0,0,0,0.04);
+	-moz-box-shadow: 0 0 10px rgba(0,0,0,0.04);
+}
+</style>
+<script type="text/javascript" src="jquery.min.js"></script>
+<script type="text/javascript" src="cufon-yui.js"></script>
+<script type="text/javascript" src="Myriad_Pro_600.font.js"></script>
+<script type="text/javascript">
+$(function(){
 
-			#nav {
-				margin-top:20px;
-				margin-left:30px;
-				width:228px;
-				float:left;
+	Cufon.replace('h2, a', {
+		color: '-linear-gradient(#ffffff, #E9E9E9)',
+		textShadow: '0 1px #939393'
+	});
 
-			}
-			.homePagePanel * {
-				margin:0px;
-			}
-			.homePagePanel .panelBody ul {
-				list-style-type:none;
-				margin-bottom:10px;
-			}
-			.homePagePanel .panelBody h1 {
-				text-transform:uppercase;
-				font-size:1.1em;
-				margin-bottom:10px;
-			}
-			.homePagePanel .panelBody {
-			    background: url(images/leftnav_midstretch.png) repeat-y top;
-				margin:0px;
-				padding:15px;
-			}
-			.homePagePanel .panelBtm {
-			    background: url(images/leftnav_btm.png) no-repeat top;
-				height:20px;
-				margin:0px;
-			}
-
-			.homePagePanel .panelTop {
-			    background: url(images/leftnav_top.png) no-repeat top;
-				height:11px;
-				margin:0px;
-			}
-			h2 {
-				margin-top:15px;
-				margin-bottom:15px;
-				font-size:1.2em;
-			}
-			#pageBody {
-				margin-left:280px;
-				margin-right:20px;
-			}
-		</style>
-    </head>
-    <body>
-		<div id="nav">
-			<div class="homePagePanel">
-				<div class="panelTop">
-
-				</div>
-				<div class="panelBody">
-					<h1>Application Status</h1>
-					<ul>
-						<li>App version: <g:meta name="app.version"></g:meta></li>
-						<li>Grails version: <g:meta name="app.grails.version"></g:meta></li>
-						<li>JVM version: ${System.getProperty('java.version')}</li>
-						<li>Controllers: ${grailsApplication.controllerClasses.size()}</li>
-						<li>Domains: ${grailsApplication.domainClasses.size()}</li>
-						<li>Services: ${grailsApplication.serviceClasses.size()}</li>
-						<li>Tag Libraries: ${grailsApplication.tagLibClasses.size()}</li>
-					</ul>
-					<h1>Installed Plugins</h1>
-					<ul>
-						<g:set var="pluginManager"
-						       value="${applicationContext.getBean('pluginManager')}"></g:set>
-
-						<g:each var="plugin" in="${pluginManager.allPlugins}">
-							<li>${plugin.name} - ${plugin.version}</li>
-						</g:each>
-
-					</ul>
-				</div>
-				<div class="panelBtm">
-				</div>
-			</div>
-
-
-		</div>
-		<div id="pageBody">
-	        <h1>Welcome to Grails</h1>
-	        <p>Congratulations, you have successfully started your first Grails application! At the moment
-	        this is the default page, feel free to modify it to either redirect to a controller or display whatever
-	        content you may choose. Below is a list of controllers that are currently deployed in this application,
-	        click on each to execute its default action:</p>
-
-	        <div id="controllerList" class="dialog">
-				<h2>Available Controllers:</h2>
-	            <ul>
-	              <g:each var="c" in="${grailsApplication.controllerClasses}">
-	                    <li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
-	              </g:each>
-	            </ul>
-	        </div>
-		</div>
-    </body>
+});
+</script>
+</head>
+<body>
+<h1 id="header">intraStats <g:meta name="app.version"></g:meta></h1>
+<div id="container">
+	<h2>x visits today</h2>
+	<ul>
+		<g:each var="c" in="${grailsApplication.controllerClasses}">
+			<li class="controller"><g:link controller="${c.logicalPropertyName}">${c.fullName}</g:link></li>
+	    </g:each>
+	</ul>
+</div>
+</body>
 </html>
