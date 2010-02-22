@@ -7,5 +7,6 @@ class Section {
     Date dateCreated
     
     static constraints = {
+        name(unique: true)
     }
 }

@@ -3,7 +3,8 @@ package no.forsvaret.intrastats
 class PageVisitController {
 
     def output
-    def timeOut = 1000 * 60 * 30
+    //  def timeOut = 1000 * 60 * 30
+    def timeOut = 1000
 
     def index = {
         output = ""
@@ -14,7 +15,7 @@ class PageVisitController {
                 if (params.referral != null) {
                     referral = getPage(params.referral, null)
                 }
-                registerVisit(page, referral, params.browserWidth, params.browserHeight)
+                registerVisit(getSection(params.section), page, referral, params.browserWidth, params.browserHeight)
             } else {
                 output += "Page was null, dunnolol"
             }
@@ -39,13 +40,33 @@ class PageVisitController {
         return page
     }
 
-    def registerVisit(page, referral, browserWidth, browserHeight) {
+    def getSection(name) {
+        if (name == null) {
+            return null
+        }
+        def section = Section.findByName(name)
+        if (section == null) {
+            section = new Section(name: name)
+            if (validate(section)) {
+                section.save()
+                return section
+            } else {
+                return null
+            }
+        }
+        return section
+    }
+
+    def registerVisit(section, page, referral, browserWidth, browserHeight) {
         def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
-         if (Visit.countByClientAndDateCreatedGreaterThan(client, new Date(new Date().getTime() - timeOut)) == 0) {
+        if (Visit.countByClientAndDateCreatedGreaterThan(client, new Date(new Date().getTime() - timeOut)) == 0) {
             if (client != null) {
                 def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
                 if (validate(visit)) {
                     visit.save()
+                    if (section != null && page != null) {
+                        section.addToPages(page).save()
+                    }
                     if (page.addToVisits(visit).save() &&
                         client.addToVisits(visit).save()) {
                         output += "OK"
