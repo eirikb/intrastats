@@ -80,8 +80,8 @@
     <div id="container">
       <h2>${no.forsvaret.intrastats.Visit.countByDateCreatedGreaterThan(new Date() - 1)} visits today</h2>
       <ul>
-        <li class="controller"><g:link controller="Page">Sections</g:link></li>
-        <li class="controller"><g:link controller="Page">Pages</g:link></li>
+        <li class="controller"><g:link controller="section">Sections</g:link></li>
+        <li class="controller"><g:link controller="page">Pages</g:link></li>
         <li class="controller"><g:link url="Example.html">Example (How to)</g:link></li>
       </ul>
     </div>
