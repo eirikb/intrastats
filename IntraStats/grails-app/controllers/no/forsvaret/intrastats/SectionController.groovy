@@ -37,7 +37,12 @@ class SectionController {
             redirect(action: "list")
         }
         else {
-            [sectionInstance: sectionInstance]
+            def visitCount = null
+            if (params.submit != null) {
+                
+            }
+
+            [sectionInstance: sectionInstance, visitCount: visitCount]
         }
     }
 
