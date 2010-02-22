@@ -40,12 +40,8 @@ class PageVisitController {
     }
 
     def registerVisit(page, referral, browserWidth, browserHeight) {
-        if (session["visits"] == null) {
-            session["visits"] = [:]
-        }
-        def time = session["visits"].get(page.id)
-        if (time == null || System.currentTimeMillis() - time > timeOut) {
-            def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
+        def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
+         if (Visit.countByClientAndDateCreatedGreaterThan(client, new Date(new Date().getTime() - timeOut)) == 0) {
             if (client != null) {
                 def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
                 if (validate(visit)) {
@@ -53,7 +49,6 @@ class PageVisitController {
                     if (page.addToVisits(visit).save() &&
                         client.addToVisits(visit).save()) {
                         output += "OK"
-                        session["visits"].put(page.id, System.currentTimeMillis())
                     } else  {
                         output += "Linking between Client, Visit and Page failed!"
                     }
