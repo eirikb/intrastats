@@ -21,7 +21,13 @@ $(function() {
         HOST += '/';
     }
 
-    $.getJSON(HOST + 'pageVisit/index?jsoncallback=?', {
+    if(typeof(SECTION) === 'undefined') {
+        SECTION = "";
+    } else {
+        SECTION = "section=" + SECTION + '&';
+    }
+
+    $.getJSON(HOST + 'pageVisit/index?' + SECTION + 'jsoncallback=?', {
         url: window.location.href.split(';')[0],
         articleID: articleID,
         browserWidth: $(window).width(),
