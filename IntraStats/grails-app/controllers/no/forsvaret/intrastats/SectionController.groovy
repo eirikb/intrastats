@@ -39,8 +39,14 @@ class SectionController {
         else {
             def visitCount = null
             if (params.submit != null) {
-                
+                //TODO: hent ut info.
+                //TODO: Vis info i tabellform + kanskje fusion chart.
+                //TODO: Bruk jQuery datepicker
             }
+
+            //TODO: List ut alle pages
+            //TODO: Browsertype(user-agent)-statistikk!
+            //TODO: browsersize
 
             [sectionInstance: sectionInstance, visitCount: visitCount]
         }

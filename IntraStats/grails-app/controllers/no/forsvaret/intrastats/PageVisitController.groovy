@@ -3,6 +3,7 @@ package no.forsvaret.intrastats
 class PageVisitController {
 
     def output
+    //TODO flytt til Config.groovy
     //  def timeOut = 1000 * 60 * 30
     def timeOut = 1000
 
@@ -59,6 +60,7 @@ class PageVisitController {
 
     def registerVisit(section, page, referral, browserWidth, browserHeight) {
         def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
+        //TODO: countby her bryr seg ikke om page! 
         if (Visit.countByClientAndDateCreatedGreaterThan(client, new Date(new Date().getTime() - timeOut)) == 0) {
             if (client != null) {
                 def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
