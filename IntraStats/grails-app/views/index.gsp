@@ -48,6 +48,7 @@ h1#header {
 	margin: 0;
 	padding: 10px;
 	text-decoration: none;
+        outline: none;
 }
 #container ul li a:hover {
 	text-decoration: none;
