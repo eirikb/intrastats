@@ -1,11 +1,13 @@
 package no.forsvaret.intrastats
 
+import org.codehaus.groovy.grails.commons.*
+
+
 class PageVisitController {
 
     def output
-    //TODO flytt til Config.groovy
-    //  def timeOut = 1000 * 60 * 30
-    def timeOut = 1000
+    def config = ConfigurationHolder.config
+    def timeOut = config.pagevisit.session.timeout
 
     def index = {
         output = ""
