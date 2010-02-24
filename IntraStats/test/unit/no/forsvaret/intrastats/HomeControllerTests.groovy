@@ -2,7 +2,7 @@ package no.forsvaret.intrastats
 
 import grails.test.*
 
-class PageTests extends GrailsUnitTestCase {
+class HomeControllerTests extends ControllerUnitTestCase {
     protected void setUp() {
         super.setUp()
     }
@@ -12,5 +12,6 @@ class PageTests extends GrailsUnitTestCase {
     }
 
     void testSomething() {
+
     }
 }
