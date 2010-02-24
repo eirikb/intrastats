@@ -62,8 +62,9 @@ class PageVisitController {
 
     def registerVisit(section, page, referral, browserWidth, browserHeight) {
         def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
-        //TODO: countby her bryr seg ikke om page! 
-        if (Visit.countByClientAndDateCreatedGreaterThan(client, new Date(new Date().getTime() - timeOut)) == 0) {
+        def visits = Visit.executeQuery("select count(v) from Visit v where v.client = ? and dateCreated > ? and v.page = ?",
+            [client, new Date(new Date().getTime() - timeOut), page])[0]
+        if (visits == 0) {
             if (client != null) {
                 def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
                 if (validate(visit)) {

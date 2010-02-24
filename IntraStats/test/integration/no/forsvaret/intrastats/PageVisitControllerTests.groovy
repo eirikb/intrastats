@@ -39,4 +39,46 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         assertEquals(height, Visit.list().get(0).getBrowserHeight())
         Visit.list().each() { println it.dump() }
     }
+
+    void testTimeout() {
+        def pv = new PageVisitController()
+        pv.params.url = "http://www.testpage1.com"
+        pv.request.addHeader("user-agent", "test")
+        pv.index()
+        println pv.response.contentAsString
+        assertEquals(1, Page.count())
+        assertEquals(1, Visit.count())
+        assertEquals("http://www.testpage1.com", Page.list().get(0).getUrl())
+
+        sleep(1000)
+
+        pv = new PageVisitController()
+        pv.params.url = "http://www.testpage2.com"
+        pv.request.addHeader("user-agent", "test")
+        pv.timeOut = 3000 // 3 seconds
+        pv.index()
+        println pv.response.contentAsString
+        assertEquals(2, Page.count())
+        assertEquals(2, Visit.count())
+
+        pv = new PageVisitController()
+        pv.params.url = "http://www.testpage1.com"
+        pv.request.addHeader("user-agent", "test")
+        pv.timeOut = 3000 // 3 seconds
+        pv.index()
+        println pv.response.contentAsString
+        assertEquals(2, Page.count())
+        assertEquals(2, Visit.count())
+
+        sleep(1000)
+
+        pv = new PageVisitController()
+        pv.params.url = "http://www.testpage1.com"
+        pv.request.addHeader("user-agent", "test")
+        pv.timeOut = 0 // 0 seconds
+        pv.index()
+        println pv.response.contentAsString
+        assertEquals(2, Page.count())
+        assertEquals(3, Visit.count())
+    }
 }
