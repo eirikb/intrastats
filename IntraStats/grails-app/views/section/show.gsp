@@ -6,47 +6,31 @@
     <meta name="layout" content="main" />
   <g:set var="entityName" value="${message(code: 'section.label', default: 'Section')}" />
   <title><g:message code="default.show.label" args="[entityName]" /></title>
+  <g:javascript src="FusionCharts.js" />
 </head>
 <body>
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
     <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
   </div>
-  <div class="body">
+  <div class="body" style="background: #fff; width: 90%">
     <h1><g:message code="default.show.label" args="[entityName]" /></h1>
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>
-    <div class="dialog">
-      <table>
-        <tbody>
-
-          <tr class="prop">
-            <td valign="top" class="name"><g:message code="section.id.label" default="Id" /></td>
-        <td valign="top" class="value">${fieldValue(bean: sectionInstance, field: "id")}</td>
-        </tr>
-
-        <tr class="prop">
-          <td valign="top" class="name"><g:message code="section.name.label" default="Name" /></td>
-        <td valign="top" class="value">${fieldValue(bean: sectionInstance, field: "name")}</td>
-
-        </tr>
-        <tr class="prop">
-          <td valign="top" class="name"><g:message code="section.dateCreated.label" default="Date Created" /></td>
-        <td valign="top" class="value"><g:formatDate date="${sectionInstance?.dateCreated}" /></td>
-        </tr>
-        </tbody>
-      </table>
-    </div>
     <h3>Visits: ${visitCount}</h3>
-    From:
-    <g:form controller="section" action="show" id="${params.id}" method="get">
-      <g:datePicker name="fromDate" value="${new Date() - 365}" precision="day"/>
-      To:
-      <g:datePicker name="toDate" value="${new Date()}" precision="day"/>
-      <br />
-      <g:submitButton name="submit" value="Calculate visits, yo" />
-    </g:form>
+
+
+    <div id="chartdiv" align="center">
+      FusionCharts. </div>
+
+    <script type="text/javascript">
+                 var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "600", "350");
+                 chart.setDataXML("${data}");
+                 chart.render("chartdiv");
+    </script>
+
+
   </div>
 </body>
 </html>
