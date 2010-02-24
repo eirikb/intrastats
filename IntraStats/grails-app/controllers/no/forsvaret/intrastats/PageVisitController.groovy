@@ -18,7 +18,8 @@ class PageVisitController {
                 if (params.referral != null) {
                     referral = getPage(params.referral, null)
                 }
-                registerVisit(getSection(params.section), page, referral, params.browserWidth, params.browserHeight)
+                def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
+                registerVisit(getSection(params.section), page, client, referral, params.browserWidth, params.browserHeight)
             } else {
                 output += "Page was null, dunnolol"
             }
@@ -33,7 +34,7 @@ class PageVisitController {
     def getPage(url, title) {
         def page = Page.findByUrl(url)
         if (page == null) {
-            page = new Page(url:params.url, title:params.title)
+            page = new Page(url:url, title:title)
             if (validate(page)) {
                 page.save()
             } else {
@@ -60,8 +61,7 @@ class PageVisitController {
         return section
     }
 
-    def registerVisit(section, page, referral, browserWidth, browserHeight) {
-        def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
+    def registerVisit(section, page, client, referral, browserWidth, browserHeight) {
         def visits = Visit.executeQuery("select count(v) from Visit v where v.client = ? and dateCreated > ? and v.page = ?",
             [client, new Date(new Date().getTime() - timeOut), page])[0]
         if (visits == 0) {
