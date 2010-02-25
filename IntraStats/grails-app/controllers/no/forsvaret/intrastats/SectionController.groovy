@@ -48,8 +48,29 @@ class SectionController {
             //TODO: Browsertype(user-agent)-statistikk!
             //TODO: browsersize
 
+            def data = getVisits();
+
+            [sectionInstance: sectionInstance, visitCount: visitCount, data: data]
+        }
+    }
+
+    def getVisitsAjax = {
+        println params.fromDate
+        render getVisits()
+    }
+
+    def getVisits = {
+        def sectionInstance = Section.get(params.id)
+        if (sectionInstance != null) {
+            def visitlist = null
+
+            if (params.fromDate == null || params.toDate == null) {
+                visitlist = Visit.executeQuery("select v from Visit v left join v.page p left join p.section s where s = ?", sectionInstance)
+            } else {
+                Date
+            }
             def visits = [:]
-            Visit.list().each() {
+            visitlist?.each() {
                 def day = it.dateCreated.format("dd")
                 if (visits[day] == null) {
                     visits[day] = 0
@@ -67,8 +88,7 @@ class SectionController {
 
             }
             data += "</graph>"
-
-            [sectionInstance: sectionInstance, visitCount: visitCount, data: data]
+            return data
         }
     }
 
