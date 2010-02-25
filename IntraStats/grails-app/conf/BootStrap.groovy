@@ -33,9 +33,9 @@ class BootStrap {
             def total = 100
             pv.timeOut = 0
             for(i in 0..total) {
-                def section = sections[(int)(Math.random() * (sections.length - 1))]
-                def page = pages[(int)(Math.random() * (pages.length - 1))]
-                def client = clients[(int)(Math.random() * (clients.length - 1))]
+                def section = sections[(int)(Math.random() * (sections.length))]
+                def page = pages[(int)(Math.random() * (pages.length ))]
+                def client = clients[(int)(Math.random() * (clients.length ))]
                 
                 if (section != null && page != null && client != null) {
                     pv.registerVisit(section, page, client, null, i, i)
