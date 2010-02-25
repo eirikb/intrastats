@@ -8,6 +8,11 @@ class PageVisitController {
     def output
     def config = ConfigurationHolder.config
     def timeOut = config.pagevisit.session.timeout
+    def hitCount = 0
+    def maxCount = 1000
+
+    // Plan A - put all visits in RAM, to increase speed for IntraStats.js
+    static def lastVisit = [:]  // clientid + ' ' + pageid - date
 
     def index = {
         output = ""
@@ -62,9 +67,11 @@ class PageVisitController {
     }
 
     def registerVisit(section, page, client, referral, browserWidth, browserHeight) {
-        def visits = Visit.executeQuery("select count(v) from Visit v where v.client = ? and dateCreated > ? and v.page = ?",
-            [client, new Date(new Date().getTime() - timeOut), page])[0]
-        if (visits == 0) {
+        // This can be used to get the same information from database
+        //def visits = Visit.executeQuery("select count(v) from Visit v where v.client = ? and dateCreated > ? and v.page = ?",
+        //    [client, new Date(new Date().getTime() - timeOut), page])[0]
+        def lv = lastVisit.get(client.id + " " + page.id)
+        if (lv == null || System.currentTimeMillis() - lv > timeOut) {
             if (client != null) {
                 def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
                 if (validate(visit)) {
@@ -74,6 +81,20 @@ class PageVisitController {
                     }
                     if (page.addToVisits(visit).save() &&
                         client.addToVisits(visit).save()) {
+                        lastVisit.put(client.id + " " + page.id, new Date().getTime())
+                        hitCount++
+                        if (hitCount >= maxCount) {
+                            hitCount = 0
+                            def toRemove = []
+                            lastVisit.each() {
+                                if (System.currentTimeMillis() - it.value > timeOut) {
+                                    toRemove << it.key
+                                }
+                            }
+                            toRemove.each() {
+                                lastVisit.remove(it)
+                            }
+                        }
                         output += "OK"
                     } else  {
                         output += "Linking between Client, Visit and Page failed!"
