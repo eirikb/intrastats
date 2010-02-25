@@ -8,7 +8,22 @@
   <title><g:message code="default.show.label" args="[entityName]" /></title>
   <g:javascript src="FusionCharts.js" />
   <g:javascript src="jquery-ui-1.7.2.custom.min.js" />
+  <g:javascript library="prototype" />
   <link rel="stylesheet" href="${resource(dir:'css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
+  <script type="text/javascript">
+    $(function() {
+      $("#fromDate").datepicker();
+      $("#toDate").datepicker();
+    });
+
+    function getVisitsAjax() {
+      $()
+          //   var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "600", "350");
+          //       chart.setDataXML(response.responseText);
+          //       chart.render("chartdiv");
+    }
+
+  </script>
 </head>
 <body>
   <div class="nav">
@@ -22,6 +37,9 @@
     </g:if>
     <h3>Visits: ${visitCount}</h3>
 
+    <p>From: <input type="text" id="fromDate"></p>
+    <p>To: <input type="text" id="toDate"></p>
+    <a href="${params.id}" onclick="getVisitsAjax(); return false;">Fetch</a>
 
     <div id="chartdiv" align="center">
       FusionCharts. </div>
