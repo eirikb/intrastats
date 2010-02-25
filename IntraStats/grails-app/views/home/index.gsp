@@ -4,9 +4,10 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>intraStats <g:meta name="app.version"></g:meta></title>
+    <meta name="layout" content="main" />
     <style type="text/css" media="screen">
       body {
-        background: #ddd url(bg.png);
+        background: #ddd url(images/bg.png);
         font-size: 1.3em;
         font-family: "Helvetica", Helvetica, sans-serif;
       }
@@ -19,12 +20,12 @@
         height: 50px;
         display: block;
         margin: 80px auto -10px auto;
-        background: url(header.png);
+        background: url(images/header.png);
         padding: 0;
       }
       #container {
         margin: 0 auto;
-        background: url(content-bg.png);
+        background: url(images/content-bg.png);
         width: 300px;
         height: 300px;
       }
@@ -61,9 +62,6 @@
         -moz-box-shadow: 0 0 10px rgba(0,0,0,0.04);
       }
     </style>
-    <script type="text/javascript" src="jquery.min.js"></script>
-    <script type="text/javascript" src="cufon-yui.js"></script>
-    <script type="text/javascript" src="Myriad_Pro_600.font.js"></script>
     <script type="text/javascript">
     $(function(){
 
