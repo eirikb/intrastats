@@ -55,20 +55,25 @@ class SectionController {
     }
 
     def getVisitsAjax = {
-        println params.fromDate
         render getVisits()
     }
 
     def getVisits = {
         def sectionInstance = Section.get(params.id)
         if (sectionInstance != null) {
-            def visitlist = null
-
-            if (params.fromDate == null || params.toDate == null) {
-                visitlist = Visit.executeQuery("select v from Visit v left join v.page p left join p.section s where s = ?", sectionInstance)
-            } else {
-                Date
+            def fromDate = new Date() - 7;
+            def toDate = new Date()
+            if (params.fromDate != null && params.toDate != null) {
+                try {
+                    fromDate = new Date().parse("yyyy-MM-dd", params.fromDate)
+                    toDate = new Date().parse("yyyy-MM-dd", params.toDate)
+                } catch (e) {
+                    fromDate = new Date() - 7
+                    toDate = new Date()
+                }
             }
+            def  visitlist = Visit.executeQuery("select v from Visit v left join v.page p left join p.section s where s = ? \
+                                                and v.dateCreated >= ? and v.dateCreated <= ?", sectionInstance, fromDate, toDate)
             def visits = [:]
             visitlist?.each() {
                 def day = it.dateCreated.format("dd")

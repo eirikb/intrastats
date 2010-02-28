@@ -8,21 +8,20 @@
   <title><g:message code="default.show.label" args="[entityName]" /></title>
   <g:javascript src="FusionCharts.js" />
   <g:javascript src="jquery-ui-1.7.2.custom.min.js" />
-  <g:javascript library="prototype" />
   <link rel="stylesheet" href="${resource(dir:'css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
   <script type="text/javascript">
     $(function() {
-      $("#fromDate").datepicker();
-      $("#toDate").datepicker();
+      $("#fromDate").datepicker({ dateFormat: 'yy-mm-dd' });
+      $("#toDate").datepicker({ dateFormat: 'yy-mm-dd' });
     });
 
     function getVisitsAjax() {
-      $()
-          //   var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "600", "350");
-          //       chart.setDataXML(response.responseText);
-          //       chart.render("chartdiv");
+      $.get("${createLink(uri: '/')}section/getVisitsAjax", {id : ${params.id}, fromDate: $("#fromDate").val(), toDate: $("#toDate").val()}, function(data) {
+                var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "600", "350");
+                 chart.setDataXML(data);
+                 chart.render("chartdiv");
+      });
     }
-
   </script>
 </head>
 <body>
