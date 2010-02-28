@@ -8,11 +8,11 @@ class PageVisitController {
     def output
     def config = ConfigurationHolder.config
     def timeOut = config.pagevisit.session.timeout
-    def hitCount = 0
-    def maxCount = 1000
 
     // Plan A - put all visits in RAM, to increase speed for IntraStats.js
-    static def lastVisit = [:]  // clientid + ' ' + pageid - date
+    static def lastVisit = [:].asSynchronized()  // clientid + ' ' + pageid - date
+    static def hitCount = 0 // Clear when hit maxCount
+    def maxCount = 1000
 
     def index = {
         output = ""
@@ -86,13 +86,15 @@ class PageVisitController {
                         if (hitCount >= maxCount) {
                             hitCount = 0
                             def toRemove = []
-                            lastVisit.each() {
-                                if (System.currentTimeMillis() - it.value > timeOut) {
-                                    toRemove << it.key
+                            synchronized(lastVisit) {
+                                lastVisit.each() {
+                                    if (System.currentTimeMillis() - it.value > timeOut) {
+                                        toRemove << it.key
+                                    }
                                 }
-                            }
-                            toRemove.each() {
-                                lastVisit.remove(it)
+                                toRemove.each() {
+                                    lastVisit.remove(it)
+                                }
                             }
                         }
                         output += "OK"
