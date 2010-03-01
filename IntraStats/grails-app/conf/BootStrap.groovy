@@ -24,9 +24,12 @@ class BootStrap {
                 pages[i] =  pv.getPage("http://www.testpage" + i + ".com", "Testpage " + i)
             }
 
+            def userAgents = ["MSIE 5.0", "MSIE 5.5", "MSIE 6.0", "MSIE 7.0", "MSIE 8.0",
+                "firefox", "opera", "chomre", "lynx", "RANDOM"]
+
             def clients = new Client[5]
             for (i in 0..clients.length - 1) {
-                clients[i] = pv.getClient("Address " + i, "Host " + i, "User-agent " + i)
+                clients[i] = pv.getClient("Address " + i, "Host " + i, userAgents[(int)(Math.random() * (userAgents.size() - 1))])
             }
 
             def p = 0

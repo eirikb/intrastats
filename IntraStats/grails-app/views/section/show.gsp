@@ -18,9 +18,15 @@
 
     function getVisitsAjax() {
       $.get("${createLink(uri: '/')}section/getVisitsAjax", {id : ${params.id}, fromDate: $("#fromDate").val(), toDate: $("#toDate").val()}, function(data) {
-                var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "750", "350");
-                 chart.setDataXML(data);
-                 chart.render("chartdiv");
+
+        var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "750", "350");
+        chart.setDataXML(data.visitData);
+        chart.render("visitData");
+
+        var myChart2 = new FusionCharts("${createLink(uri: '/')}flash/FCF_Pie3D.swf", "myChartId2", "600", "500");
+        myChart2.setDataXML(data.browserData);
+        myChart2.render("browserData");
+
       });
     }
   </script>
@@ -28,7 +34,6 @@
 <body>
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
-    <span class="menuButton"><g:link class="list" action="list"><g:message code="default.list.label" args="[entityName]" /></g:link></span>
   </div>
   <div class="body" style="background: #fff; width: 90%">
     <h1><g:message code="default.show.label" args="[entityName]" /></h1>
@@ -40,9 +45,8 @@
     <p>From: <input type="text" id="fromDate"></p>
     <p>To: <input type="text" id="toDate"></p>
     <a href="${params.id}" onclick="getVisitsAjax(); return false;">Fetch</a>
-    <div id="chartdiv" align="center">
-      FusionCharts. </div>
-
+    <div id="visitData" align="center">Visits</div>
+    <div id="browserData" align="center">browsers</div>
 
 
 
