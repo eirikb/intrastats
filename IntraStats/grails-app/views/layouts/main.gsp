@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
   <head>
     <title><g:layoutTitle default="Grails" /></title>
@@ -5,6 +6,7 @@
     <link rel="shortcut icon" href="${resource(dir:'images',file:'favicon.ico')}" type="image/x-icon" />
   <g:javascript library="jquery.min" />
   <g:javascript library="cufon-yui" />
+  <g:javascript library="Myriad_Pro_600.font" />
   <g:layoutHead />
 </head>
 <body>
