@@ -14,12 +14,15 @@
       h1, h2 {
         text-align: center;
       }
+      #grailsLogo {
+        display: none;
+      }
       h1#header {
         text-indent: -9999px;
         width: 300px;
         height: 50px;
         display: block;
-        margin: 80px auto -10px auto;
+        margin: 80px auto 0 auto;
         background: url(images/header.png);
         padding: 0;
       }
@@ -81,9 +84,8 @@
         <g:each in="${sections}" var="section">
           <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name}</g:link></li>
         </g:each>
-        <li>-</li>
         <li class="controller"><g:link controller="page">Pages</g:link></li>
-        <li class="controller"><g:link url="Example.html">Example (How to)</g:link></li>
+       <!-- <li class="controller"><g:link url="Example.html">Example (How to)</g:link></li> -->
       </ul>
     </div>
   </body>
