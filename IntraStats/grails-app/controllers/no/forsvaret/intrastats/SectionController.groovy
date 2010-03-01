@@ -1,5 +1,7 @@
 package no.forsvaret.intrastats
 
+import grails.converters.JSON
+
 class SectionController {
 
     static allowedMethods = [save: "POST", update: "POST", delete: "POST"]
@@ -50,7 +52,7 @@ class SectionController {
 
             def data = getVisits();
 
-            [sectionInstance: sectionInstance, visitCount: visitCount, data: data]
+            [sectionInstance: sectionInstance, visitCount: visitCount]
         }
     }
 
@@ -76,7 +78,7 @@ class SectionController {
                                                 and v.dateCreated >= ? and v.dateCreated <= ?", sectionInstance, fromDate, toDate)
             def visits = [:]
             visitlist?.each() {
-                def day = it.dateCreated.format("dd")
+                def day = it.dateCreated.format("MM-dd")
                 if (visits[day] == null) {
                     visits[day] = 0
                 }
@@ -85,7 +87,8 @@ class SectionController {
 
 
             def colors = ["AFD8F8", "F6BD0F", "8BBA00", "FF8E46", "008E8E", "D64646", "8E468E", "588526", "B3AA00", "008ED6", "9D080D", "A186BE"]
-            def data = "<graph caption='Visits for each day' xAxisName='Day' yAxisName='Visits' showNames='1' decimalPrecision='0' formatNumberScale='0'>"
+            def data = "<graph caption='Visits for each day (" + prettytime.display(date:fromDate) +
+            " - " + prettytime.display(date:toDate)  + ")' xAxisName='Day' yAxisName='Visits' showNames='1' decimalPrecision='0' formatNumberScale='0'>"
             visits.sort{it.key}.each() {
                 def day = it.key
                 def color = colors[(int)(Math.random() * colors.size())]
@@ -93,6 +96,7 @@ class SectionController {
 
             }
             data += "</graph>"
+            println prettytime.display(date: fromDate)
             return data
         }
     }

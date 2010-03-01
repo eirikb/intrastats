@@ -13,11 +13,12 @@
     $(function() {
       $("#fromDate").datepicker({ dateFormat: 'yy-mm-dd' });
       $("#toDate").datepicker({ dateFormat: 'yy-mm-dd' });
+      getVisitsAjax();
     });
 
     function getVisitsAjax() {
       $.get("${createLink(uri: '/')}section/getVisitsAjax", {id : ${params.id}, fromDate: $("#fromDate").val(), toDate: $("#toDate").val()}, function(data) {
-                var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "600", "350");
+                var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "750", "350");
                  chart.setDataXML(data);
                  chart.render("chartdiv");
       });
@@ -39,15 +40,10 @@
     <p>From: <input type="text" id="fromDate"></p>
     <p>To: <input type="text" id="toDate"></p>
     <a href="${params.id}" onclick="getVisitsAjax(); return false;">Fetch</a>
-
     <div id="chartdiv" align="center">
       FusionCharts. </div>
 
-    <script type="text/javascript">
-                 var chart = new FusionCharts("${createLink(uri: '/')}flash/FCF_Column3D.swf", "ChartId", "600", "350");
-                 chart.setDataXML("${data}");
-                 chart.render("chartdiv");
-    </script>
+
 
 
   </div>
