@@ -9,6 +9,11 @@
   <g:javascript src="FusionCharts.js" />
   <g:javascript src="jquery-ui-1.7.2.custom.min.js" />
   <link rel="stylesheet" href="${resource(dir:'css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
+  <style type="text/css">
+  .menuButton .list {
+    display: none;
+  }
+  </style>
   <script type="text/javascript">
     $(function() {
       $("#fromDate").datepicker({ dateFormat: 'yy-mm-dd' });
@@ -35,7 +40,7 @@
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
   </div>
-  <div class="body" style="background: #fff; width: 90%">
+  <div class="body" style="width: 90%">
     <h1><g:message code="default.show.label" args="[entityName]" /></h1>
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
