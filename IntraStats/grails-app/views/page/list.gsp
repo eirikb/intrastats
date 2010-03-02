@@ -17,11 +17,15 @@
       <div class="message">${flash.message}</div>
     </g:if>
     <div class="list">
+      <g:each var="i" in="${ [10, 25, 50, 100] }">
+        <g:link action="list" id="${params.id}" params="[max:i]">${i}</g:link>
+      </g:each>
+
       <table>
         <thead>
           <tr>
         <g:sortableColumn property="id" title="${message(code: 'page.id.label', default: 'Id')}" />
-        <g:sortableColumn property="url" title="${message(code: 'page.url.label', default: 'Url')}" />
+        <g:sortableColumn property="url" title="Url (open in new tab)" />
         <g:sortableColumn property="title" title="${message(code: 'page.title.label', default: 'Title')}" />
         <g:sortableColumn property="visits.size" title="${message(code: 'page.url.label', default: 'Visits')}" />
         <g:sortableColumn property="dateCreated" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
@@ -32,7 +36,7 @@
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
 
             <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[0]}</g:link></td>
-          <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[1]}</g:link></td>
+          <td><a href="${pageInstance[1]}" target="_blank">${pageInstance[1]}</a></td>
           <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[2]}</g:link></td>
           <td><g:link action="show" id="${pageInstance[0]}">${pageInstance[4]}</g:link></td>
           <td><g:formatDate date="${pageInstance[3]}" /></td>
