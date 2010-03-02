@@ -9,11 +9,6 @@
   <g:javascript src="FusionCharts.js" />
   <g:javascript src="jquery-ui-1.7.2.custom.min.js" />
   <link rel="stylesheet" href="${resource(dir:'css/ui-lightness',file:'jquery-ui-1.7.2.custom.css')}" />
-  <style type="text/css">
-    .menuButton .list {
-      display: none;
-    }
-  </style>
   <script type="text/javascript">
     $(function() {
       $("#fromDate").datepicker({ dateFormat: 'yy-mm-dd' });
