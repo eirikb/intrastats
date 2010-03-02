@@ -130,7 +130,7 @@ class SectionController {
             }
             browserData += "</graph>"
 
-            return [visitData: visitData, browserData: browserData] as JSON
+            return [visitData: visitData, browserData: browserData, visitCount: visitlist.size()] as JSON
         }
     }
 
@@ -190,4 +190,4 @@ class SectionController {
             redirect(action: "list")
         }
     }
-    }
+}
