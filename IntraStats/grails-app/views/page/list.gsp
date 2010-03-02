@@ -10,6 +10,9 @@
 <body>
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
+    <g:if test="${params.id}">
+      <span class="menuButton"><g:link class="list" controller="section" id="${params.id}" action="show">Back to parent section</g:link></span>
+    </g:if>
   </div>
   <div class="body">
     <h1><g:message code="default.list.label" args="[entityName]" /></h1>
