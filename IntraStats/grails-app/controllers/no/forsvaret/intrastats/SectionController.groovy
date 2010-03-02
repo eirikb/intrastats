@@ -110,7 +110,7 @@ class SectionController {
             }
 
             def colors = ["AFD8F8", "F6BD0F", "8BBA00", "FF8E46", "008E8E", "D64646", "8E468E", "588526", "B3AA00", "008ED6", "9D080D", "A186BE"]
-            def visitData = "<graph caption='Visits for each day (" + prettytime.display(date:fromDate) +
+            def visitData = "<graph bgAlpha='0' caption='Visits for each day (" + prettytime.display(date:fromDate) +
             " - " + prettytime.display(date:toDate)  + ")' xAxisName='Day' yAxisName='Visits' showNames='1' decimalPrecision='0' formatNumberScale='0'>"
             visits.sort{it.key}.each() {
                 def day = it.key
@@ -121,7 +121,7 @@ class SectionController {
             visitData += "</graph>"
 
 
-            def browserData = "<graph caption='Browser usage' decimalPrecision='0' formatNumberScale='0'>"
+            def browserData = "<graph bgAlpha='0' caption='Browser usage' decimalPrecision='0' formatNumberScale='0'>"
             browsers.each() { key, value ->
                 if (value[1] > 0) {
                     def color = colors[(int)(Math.random() * colors.size())]
