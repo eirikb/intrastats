@@ -27,7 +27,7 @@
         <g:sortableColumn property="id" title="${message(code: 'page.id.label', default: 'Id')}" />
         <g:sortableColumn property="url" title="Url (open in new tab)" />
         <g:sortableColumn property="title" title="${message(code: 'page.title.label', default: 'Title')}" />
-        <g:sortableColumn property="visits.size" title="${message(code: 'page.url.label', default: 'Visits')}" />
+        <g:sortableColumn defaultOrder="desc" property="visits.size" title="${message(code: 'page.url.label', default: 'Visits')}" />
         <g:sortableColumn property="dateCreated" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
         </tr>
         </thead>
