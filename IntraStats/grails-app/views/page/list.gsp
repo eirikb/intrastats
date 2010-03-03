@@ -27,11 +27,11 @@
       <table>
         <thead>
           <tr>
-        <g:sortableColumn property="id" params="[max: params.max" title="${message(code: 'page.id.label', default: 'Id')}" />
-        <g:sortableColumn property="url"  params="[max: params.max" title="Url (open in new tab)" />
-        <g:sortableColumn property="title"  params="[max: params.max" title="${message(code: 'page.title.label', default: 'Title')}" />
-        <g:sortableColumn property="visits.size"  params="[max: params.max" title="${message(code: 'page.url.label', default: 'Visits')}" />
-        <g:sortableColumn property="dateCreated"  params="[max: params.max" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
+        <g:sortableColumn property="id" params="[max: params.max]" title="${message(code: 'page.id.label', default: 'Id')}" />
+        <g:sortableColumn property="url"  params="[max: params.max]" title="Url (open in new tab)" />
+        <g:sortableColumn property="title"  params="[max: params.max]" title="${message(code: 'page.title.label', default: 'Title')}" />
+        <g:sortableColumn property="visits.size"  params="[max: params.max]" title="${message(code: 'page.url.label', default: 'Visits')}" />
+        <g:sortableColumn property="dateCreated"  params="[max: params.max]" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
         </tr>
         </thead>
         <tbody>
