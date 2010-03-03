@@ -17,7 +17,9 @@ body {
     font: 11px verdana, arial, helvetica, sans-serif;
 }
 #grailsLogo {
-	padding:20px;
+    padding:20px;
+    text-align: center;
+    margin: 0 auto;
 }
 
 a:link, a:visited, a:hover {
@@ -27,12 +29,20 @@ a:link, a:visited, a:hover {
 }
 
 h1 {
-    color: #48802c;
     font-weight: normal;
     font-size: 16px;
-    margin: .8em 0 .3em 0;
+    margin: .8em 0 1em 0;
+    text-align: center;
 }
 
+h3 {
+
+    padding: 0 0 5px 0;
+}
+div p {
+
+    margin-right: 5px;
+}
 ul {
     padding-left: 15px;
 }

@@ -33,7 +33,7 @@
         height: 300px;
       }
       #container h2 {
-        padding: 25px 0 20px 0;
+        padding: 20px 0 15px 0;
         color: #fff;
         font-size: 25px;
       }
@@ -50,7 +50,7 @@
       #container ul li a {
         display: inline-block;
         margin: 0;
-        padding: 10px;
+        padding: 8px;
         text-decoration: none;
         outline: none;
       }
