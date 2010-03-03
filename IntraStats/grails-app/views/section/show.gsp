@@ -39,15 +39,15 @@
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
     <span class="menuButton"><g:link class="list" controller="page" action="list" id="${params.id}">Page list for this section</g:link></span>
   </div>
-  <div class="body" style="width: 90%">
+  <div class="body">
     <h1><g:message code="default.show.label" args="[entityName]" /></h1>
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>
-    <div align="center">
+    <div align="center" style="width: 410px; margin: 0 auto;">
       <h3>Visits: <label id="visitCount" /></h3>
-      <p>From: <input type="text" id="fromDate"></p>
-      <p>To: <input type="text" id="toDate"></p>
+      <p style="float:left">From: <input type="text" id="fromDate"></p>
+      <p style="float:left">To: <input type="text" id="toDate"></p>
       <a href="${params.id}" onclick="getVisitsAjax(); return false;">Fetch</a>
     </div>
     <div id="visitData" align="center">Visits</div>
