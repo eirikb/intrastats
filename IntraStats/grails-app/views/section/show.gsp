@@ -45,7 +45,7 @@
       <div class="message">${flash.message}</div>
     </g:if>
     <div align="center" style="width: 410px; margin: 0 auto;">
-      <h3>Visits: <label id="visitCount" /></h3>
+      <h3>Visits: <span id="visitCount"></span></h3>
       <p style="float:left">From: <input type="text" id="fromDate"></p>
       <p style="float:left">To: <input type="text" id="toDate"></p>
       <a href="${params.id}" onclick="getVisitsAjax(); return false;">Fetch</a>
