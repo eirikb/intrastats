@@ -44,12 +44,13 @@
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>
-    <div align="center" style="width: 420px; margin: 0 auto;">
+    <div align="center" style="width: 430px; margin: 0 auto;">
       <h3>Visits: <span id="visitCount"></span></h3>
       <p style="float:left">From: <input type="text" id="fromDate"></p>
       <p style="float:left">To: <input type="text" id="toDate"></p>
       <a href="${params.id}" style="background:white;padding:2px 5px;border: 1px solid #ccc;float:left;display:block;margin:3px 0 0 4px" onclick="getVisitsAjax(); return false;">Fetch</a>
     </div>
+    <div style="clear:both"></div>
     <div id="visitData" align="center">Visits</div>
     <div id="browserData" align="center">browsers</div>
   </div>
