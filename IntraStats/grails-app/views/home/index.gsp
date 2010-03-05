@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+------<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -28,12 +28,24 @@
       #container {
         margin: 0 auto;
         text-align: center;
-        background: url(images/content-bg.png);
+        
         width: 300px;
         height: 300px;
       }
+      #container .top {
+        height: 20px;
+        background: url(images/content-bg.png);
+      }
+      #container .middle {
+        background: url(images/content-bg-middle.png) 0 0 repeat-y;
+        padding-bottom: 15px;
+      }
+      #container .bottom {
+        height: 20px;
+        background: url(images/content-bg.png) 0 bottom;
+      }
       #container h2 {
-        padding: 20px 0 15px 0;
+        padding: 0 0 20px 0;
         color: #fff;
         font-size: 25px;
       }
@@ -79,14 +91,17 @@
   <body>
     <h1 id="header">intraStats <g:meta name="app.version"></g:meta></h1>
     <div id="container">
-      <h2>${no.forsvaret.intrastats.Visit.countByDateCreatedGreaterThan(new Date() - 1)} visits today</h2>
-      <ul>
-        <g:each in="${sections}" var="section">
-          <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name}</g:link></li>
-        </g:each>
-        <li class="controller"><g:link controller="page">Pages</g:link></li>
-       <!-- <li class="controller"><g:link url="Example.html">Example (How to)</g:link></li> -->
-      </ul>
+      <div class="top"></div>
+      <div class="middle">
+        <h2>${no.forsvaret.intrastats.Visit.countByDateCreatedGreaterThan(new Date() - 1)} visits today</h2>
+        <ul>
+          <li style="margin-bottom: 10px;" class="controller"><g:link controller="page">All pages</g:link></li>
+          <g:each in="${sections}" var="section">
+            <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name}</g:link></li>
+          </g:each>
+        </ul>
+      </div>
+      <div class="bottom"></div>
     </div>
   </body>
 </html>
