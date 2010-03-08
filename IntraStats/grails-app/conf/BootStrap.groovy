@@ -19,7 +19,7 @@ class BootStrap {
                 sections[i] = pv.getSection("Section " + i)
             }
 
-            def pages = new Page[10]
+            def pages = new Page[100]
             for (i in 0..pages.length - 1) {
                 pages[i] =  pv.getPage("http://www.testpage" + i + ".com", "Testpage " + i)
             }
@@ -33,7 +33,7 @@ class BootStrap {
             }
 
             def p = 0
-            def total = 100
+            def total = 1000
             pv.timeOut = 0
             for(i in 0..total) {
                 def section = sections[(int)(Math.random() * (sections.length))]
