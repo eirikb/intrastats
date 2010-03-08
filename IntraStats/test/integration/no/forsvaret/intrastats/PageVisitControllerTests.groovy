@@ -81,4 +81,15 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         assertEquals(2, Page.count())
         assertEquals(3, Visit.count())
     }
+
+    void testPreviewUrl() {
+        def pv = new PageVisitController()
+        pv.params.url = "http://publisering.miL.no/ConTent/aRticleeditor/editor.jhtmlJADDAPADDAEF"
+        pv.request.addHeader("user-agent", "test")
+        pv.timeOut = 0 // 0 seconds
+        pv.index()
+        println pv.response.contentAsString
+        assertEquals(0, Page.count())
+        assertEquals(0, Visit.count())
+    }
 }

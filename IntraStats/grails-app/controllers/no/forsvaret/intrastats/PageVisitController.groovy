@@ -16,7 +16,7 @@ class PageVisitController {
 
     def index = {
         output = ""
-        if (params.url != null) {
+        if (params.url != null && params.url.toLowerCase().indexOf("http://publisering.mil.no/content/articleeditor/editor.jhtml") < 0) {
             def page = getPage(params.url?.decodeHTML(), params.title)
             if (page != null) {
                 def referral = null
