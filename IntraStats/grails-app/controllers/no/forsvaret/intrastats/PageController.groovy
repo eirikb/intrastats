@@ -9,10 +9,10 @@ class PageController {
     }
 
     def list = {
-        params.max = Math.min(params.max ? params.int('max') : 10, 100)
+        params.max = Math.min(params.max ? params.int('max') : 25, 100)
         params.offset = params.offset != null ? params.offset : 0
-        def sorting = params.sort != null ? " order by " + params.sort : ""
-        sorting += params.order != null ? " " + params.order : ""
+        def sorting = " order by " + (params.sort != null ? params.sort : "visits.size")
+        sorting += params.order != null ? " " + params.order : " desc"
         def section = params.id != null ? " where section = " +params.id : ""
         def pages = Page.executeQuery("select id, url, title, dateCreated, \
             visits.size from Page" + section + sorting, [max:params.max, offset:params.offset])

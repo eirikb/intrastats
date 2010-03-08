@@ -11,6 +11,7 @@
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
     <g:if test="${params.id}">
+      <span class="menuButton"><g:link class="list" controller="page" action="list">All pages</g:link></span>
       <span class="menuButton"><g:link class="list" controller="section" id="${params.id}" action="show">Back to parent section</g:link></span>
     </g:if>
   </div>
@@ -27,11 +28,11 @@
       <table>
         <thead>
           <tr>
-        <g:sortableColumn property="id" title="${message(code: 'page.id.label', default: 'Id')}" />
-        <g:sortableColumn property="url" title="Url (open in new tab)" />
-        <g:sortableColumn property="title" title="${message(code: 'page.title.label', default: 'Title')}" />
-        <g:sortableColumn defaultOrder="desc" property="visits.size" title="${message(code: 'page.url.label', default: 'Visits')}" />
-        <g:sortableColumn property="dateCreated" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
+        <g:sortableColumn property="id" params="[max: params.max]" title="${message(code: 'page.id.label', default: 'Id')}" />
+        <g:sortableColumn property="url"  params="[max: params.max]" title="Url (open in new tab)" />
+        <g:sortableColumn property="title"  params="[max: params.max]" title="${message(code: 'page.title.label', default: 'Title')}" />
+        <g:sortableColumn property="visits.size"  params="[max: params.max]" title="${message(code: 'page.url.label', default: 'Visits')}" />
+        <g:sortableColumn property="dateCreated"  params="[max: params.max]" title="${message(code: 'page.dateCreated.label', default: 'Date Created')}" />
         </tr>
         </thead>
         <tbody>
