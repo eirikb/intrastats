@@ -40,7 +40,7 @@
     <span class="menuButton"><g:link class="list" controller="page" action="list" id="${params.id}">Page list for this section</g:link></span>
   </div>
   <div class="body">
-    <h1><g:message code="default.show.label" args="[entityName]" /></h1>
+    <h1>Section ${Section.get(params.id)?.name}</h1>
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>

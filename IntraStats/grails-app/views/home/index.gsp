@@ -28,7 +28,7 @@
       #container {
         margin: 0 auto;
         text-align: center;
-        
+
         width: 300px;
         height: 300px;
       }
@@ -95,7 +95,8 @@
       <div class="middle">
         <h2>${no.forsvaret.intrastats.Visit.countByDateCreatedGreaterThan(new Date() - 1)} visits today</h2>
         <ul>
-          <li style="margin-bottom: 10px;" class="controller"><g:link controller="page">All pages</g:link></li>
+          <li style="margin-bottom: -5px;" class="controller"><g:link controller="page">All pages</g:link></li>
+          <li style="margin-bottom: 10px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
           <g:each in="${sections}" var="section">
             <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name}</g:link></li>
           </g:each>

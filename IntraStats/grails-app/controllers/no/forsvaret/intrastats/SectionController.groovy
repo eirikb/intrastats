@@ -122,9 +122,13 @@ class SectionController {
 
 
             def browserData = "<graph bgAlpha='0' caption='Browser usage' decimalPrecision='0' formatNumberScale='0'>"
+            def i = 0
             browsers.each() { key, value ->
                 if (value[1] > 0) {
-                    def color = colors[(int)(Math.random() * colors.size())]
+                    def color = colors[i++]
+                    if (i >= colors.size()) {
+                        i = 0
+                    }
                     browserData += "<set name='" + value[0] + "' value='" + value[1] + "' color='" + color + "' />"
                 }
             }
