@@ -11,6 +11,7 @@
   <div class="nav">
     <span class="menuButton"><a class="home" href="${createLink(uri: '/')}">Home</a></span>
     <g:if test="${params.id}">
+      <span class="menuButton"><g:link class="list" controller="page" action="list">All pages</g:link></span>
       <span class="menuButton"><g:link class="list" controller="section" id="${params.id}" action="show">Back to parent section</g:link></span>
     </g:if>
   </div>
