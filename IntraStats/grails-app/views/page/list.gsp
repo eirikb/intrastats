@@ -1,5 +1,6 @@
 
 <%@ page import="no.forsvaret.intrastats.Page" %>
+<%@ page import="no.forsvaret.intrastats.Section" %>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -16,7 +17,13 @@
     </g:if>
   </div>
   <div class="body">
-    <h1><g:message code="default.list.label" args="[entityName]" /></h1>
+    <g:if test="${params.id}">
+      <h1>Pages for section ${Section.get(params.id)?.name}</h1>
+    </g:if>
+    <g:else>
+      <h1>All pages</h1>
+    </g:else>
+
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>
