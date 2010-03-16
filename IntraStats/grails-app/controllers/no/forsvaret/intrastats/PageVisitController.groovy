@@ -9,9 +9,6 @@ class PageVisitController {
     def config = ConfigurationHolder.config
     def timeOut = config.pagevisit.session.timeout
 
-    // Plan A - put all visits in RAM, to increase speed for IntraStats.js
-    static def lastVisit = [:].asSynchronized()  // clientid + ' ' + pageid - date
-    static def hitCount = 0 // Clear when hit maxCount
     def maxCount = 1000
 
     def index = {
@@ -19,21 +16,41 @@ class PageVisitController {
         if (params.url != null && params.url.toLowerCase().indexOf("http://publisering.mil.no/content/articleeditor/editor.jhtml") < 0) {
             def page = getPage(params.url?.decodeHTML(), params.title)
             if (page != null) {
-                def referral = null
-                if (params.referral != null) {
-                    referral = getPage(params.referral, null)
-                }
                 def client = getClient(request.getRemoteAddr(), request.getRemoteHost(), request.getHeader("user-agent"))
-                registerVisit(getSection(params.section), page, client, referral, params.browserWidth, params.browserHeight)
+                registerVisit(getSite(params.site), getSection(params.section), page, client, params.browserWidth, params.browserHeight)
             } else {
                 output += "Page was null, dunnolol"
             }
         } else {
             output += "Must have valid url (?url=http://www.google.com)"
-            output += "\nValid params: url, title, referral, browserWidth, browserHeight"
+            output += "\nValid params: site, section, url, title, browserWidth, browserHeight"
         }
-        output = params.jsoncallback + "({\"output\" : \"" + output + "\"})"
+        output = params.jsoncallback + "({\"" + output + "\"})"
         response.outputStream << output
+    }
+
+
+    def registerVisit(site, section, page, client, browserWidth, browserHeight) {
+        if (client != null) {
+            def visit = new Visit(browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
+            if (validate(visit)) {
+                visit.save()
+                if (section != null && page != null) {
+                    //section.addToPages(page).save()
+                }
+                if (page.addToVisits(visit).save() &&
+                    client.addToVisits(visit).save()) {
+                    lastVisit.put(client.id + " " + page.id, new Date().getTime())
+                    output += "OK"
+                } else  {
+                    output += "Linking between Client, Visit and Page failed!"
+                }
+            } else {
+                output += "Visit did not validate..."
+            }
+        } else {
+            output += "Could not initalize client..."
+        }
     }
 
     def getPage(url, title) {
@@ -66,50 +83,21 @@ class PageVisitController {
         return section
     }
 
-    def registerVisit(section, page, client, referral, browserWidth, browserHeight) {
-        // This can be used to get the same information from database
-        //def visits = Visit.executeQuery("select count(v) from Visit v where v.client = ? and dateCreated > ? and v.page = ?",
-        //    [client, new Date(new Date().getTime() - timeOut), page])[0]
-        def lv = lastVisit.get(client.id + " " + page.id)
-        if (lv == null || System.currentTimeMillis() - lv > timeOut) {
-            if (client != null) {
-                def visit = new Visit(referral:referral, browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
-                if (validate(visit)) {
-                    visit.save()
-                    if (section != null && page != null) {
-                        section.addToPages(page).save()
-                    }
-                    if (page.addToVisits(visit).save() &&
-                        client.addToVisits(visit).save()) {
-                        lastVisit.put(client.id + " " + page.id, new Date().getTime())
-                        hitCount++
-                        if (hitCount >= maxCount) {
-                            hitCount = 0
-                            def toRemove = []
-                            synchronized(lastVisit) {
-                                lastVisit.each() {
-                                    if (System.currentTimeMillis() - it.value > timeOut) {
-                                        toRemove << it.key
-                                    }
-                                }
-                                toRemove.each() {
-                                    lastVisit.remove(it)
-                                }
-                            }
-                        }
-                        output += "OK"
-                    } else  {
-                        output += "Linking between Client, Visit and Page failed!"
-                    }
-                } else {
-                    output += "Visit did not validate..."
-                }
-            } else {
-                output += "Could not initalize client..."
-            }
-        } else {
-            output += "Page already registered"
+    def getSite(name) {
+        if (name == null) {
+            name = "default"
         }
+        def site = Site.findByName(name)
+        if (site == null) {
+            site = new Site(name: name)
+            if (validate(site)) {
+                site.save()
+                return site
+            } else {
+                return null
+            }
+        }
+        return site
     }
 
     def getClient(remoteAddress, remoteHost, userAgent) {

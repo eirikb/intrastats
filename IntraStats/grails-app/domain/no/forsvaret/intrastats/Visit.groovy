@@ -8,7 +8,6 @@ class Visit {
     Integer browserHeight
 
     static constraints = {
-        referral(nullable: true)
         browserWidth(nullable: true)
         browserHeight(nullable: true)
     }
