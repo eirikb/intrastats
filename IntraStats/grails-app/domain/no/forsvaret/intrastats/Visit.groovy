@@ -2,11 +2,7 @@ package no.forsvaret.intrastats
 
 class Visit {
 
-    static belongsTo = [page : Page]
-
-    Page referral
     Date dateCreated
-    Page page
     Client client
     Integer browserWidth
     Integer browserHeight

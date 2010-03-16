@@ -2,7 +2,6 @@ package no.forsvaret.intrastats
 
 class Page {
 
-    static hasMany = [visits : Visit]
     static belongsTo = [section : Section]
 
     String title
