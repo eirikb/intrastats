@@ -32,21 +32,52 @@ class PageVisitController {
 
     def registerVisit(site, section, page, client, browserWidth, browserHeight) {
         if (client != null) {
-            def visit = new Visit(browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
-            if (validate(visit)) {
-                visit.save()
-                if (section != null && page != null) {
-                    //section.addToPages(page).save()
-                }
-                if (page.addToVisits(visit).save() &&
-                    client.addToVisits(visit).save()) {
-                    lastVisit.put(client.id + " " + page.id, new Date().getTime())
-                    output += "OK"
-                } else  {
-                    output += "Linking between Client, Visit and Page failed!"
+            def timeOutDate = new Date(new Date().getTime() - timeOut)
+
+            def siteVisitRel = site != null ? SiteVisitRel.findBySiteAndDateCreatedGreaterThan(site, timeOutDate) : null
+            def sectionVisitRel = section != null ? SectionVisitRel.findBySectionAndDateCreatedGreaterThan(section, timeOutDate) : null
+            def pageVisitRel = page != null ? PageVisitRel.findByPageAndDateCreatedGreaterThan(page, timeOutDate) : null
+            println "SiteVisitRel: " + siteVisitRel + ". SectionVisitRel: " + sectionVisitRel + ". PageVisitRel: " + pageVisitRel
+
+            if (siteVisitRel == null || sectionVisitRel == null || pageVisitRel == null) {
+                def visit = new Visit(browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
+                if (validate(visit)) {
+                    visit.save()
+                    if (site != null && section != null) {
+                        site.addToSections(section).save()
+                    }
+                    if (section != null && page != null) {
+                        section.addToPages(page).save()
+                    }
+
+                     if (site != null && siteVisitRel == null) {
+                        if (new SiteVisitRel(site: site, visit: visit).save()) {
+                            output += " Site Visit registered."
+                        } else {
+                            output += " [Error] Could not register Site Visit."
+                        }
+                    }
+
+                     if (section != null && sectionVisitRel == null) {
+                        if (new SectionVisitRel(section: section, visit: visit).save()) {
+                            output += " Section Visit registered."
+                        } else {
+                            output += " [Error] Could not register Section Visit."
+                        }
+                    }
+
+                    if (pageVisitRel == null) {
+                        if (new PageVisitRel(page: page, visit: visit).save()) {
+                            output += " Page Visit registered."
+                        } else {
+                            output += " [Error] Could not register Page Visit."
+                        }
+                    }
+                } else {
+                    output += "Visit did not validate..."
                 }
             } else {
-                output += "Visit did not validate..."
+                output += "Site, Section and Page already registered."
             }
         } else {
             output += "Could not initalize client..."
@@ -67,14 +98,17 @@ class PageVisitController {
     }
 
     def getSection(name) {
+        println "NAME: " + name
         if (name == null) {
             return null
         }
         def section = Section.findByName(name)
+        println "SECTION: " + section
         if (section == null) {
             section = new Section(name: name)
             if (validate(section)) {
                 section.save()
+                println "SECIONT2: " + section
                 return section
             } else {
                 return null

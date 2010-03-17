@@ -4,6 +4,7 @@ class PageVisitRel {
 
     Page page
     Visit visit
+    Date dateCreated
 
     static constraints = {
     }
