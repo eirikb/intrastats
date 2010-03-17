@@ -4,6 +4,7 @@ class SectionVisitRel {
 
     Section section
     Visit visit
+    Date dateCreated
 
     static constraints = {
     }

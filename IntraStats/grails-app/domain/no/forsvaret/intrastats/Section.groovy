@@ -11,5 +11,6 @@ class Section {
     
     static constraints = {
         name(unique: true)
+        site(nullable: true)
     }
 }
