@@ -13,6 +13,7 @@ class PageVisitController {
 
     def index = {
         output = ""
+        def time = System.currentTimeMillis()
         if (params.url != null && params.url.toLowerCase().indexOf("http://publisering.mil.no/content/articleeditor/editor.jhtml") < 0) {
             def page = getPage(params.url?.decodeHTML(), params.title)
             if (page != null) {
@@ -27,7 +28,9 @@ class PageVisitController {
             output += "Must have valid url (?url=http://www.google.com)"
             output += "\nValid params: site, section, url, title, browserWidth, browserHeight"
         }
-        log.info(output)
+        time = System.currentTimeMillis() - time
+        output += " TIME: " + time + "ms"
+        log.info(time + "ms + " - output)
         output = params.jsoncallback + "({\"" + output + "\"})"
         response.outputStream << output
     }
