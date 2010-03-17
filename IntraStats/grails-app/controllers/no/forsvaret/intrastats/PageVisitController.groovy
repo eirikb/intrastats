@@ -20,11 +20,14 @@ class PageVisitController {
                 registerVisit(getSite(params.site), getSection(params.section), page, client, params.browserWidth, params.browserHeight)
             } else {
                 output += "Page was null, dunnolol"
+                log.error("Page was null, unknown reason")
             }
         } else {
+            log.warn("Got a request without valid parameters. Client IP: " + request.getRemoteAddr() + ". URL: " + params.url)
             output += "Must have valid url (?url=http://www.google.com)"
             output += "\nValid params: site, section, url, title, browserWidth, browserHeight"
         }
+        log.info(output)
         output = params.jsoncallback + "({\"" + output + "\"})"
         response.outputStream << output
     }
@@ -37,7 +40,6 @@ class PageVisitController {
             def siteVisitRel = site != null ? SiteVisitRel.findBySiteAndDateCreatedGreaterThan(site, timeOutDate) : null
             def sectionVisitRel = section != null ? SectionVisitRel.findBySectionAndDateCreatedGreaterThan(section, timeOutDate) : null
             def pageVisitRel = page != null ? PageVisitRel.findByPageAndDateCreatedGreaterThan(page, timeOutDate) : null
-            println "SiteVisitRel: " + siteVisitRel + ". SectionVisitRel: " + sectionVisitRel + ". PageVisitRel: " + pageVisitRel
 
             if (siteVisitRel == null || sectionVisitRel == null || pageVisitRel == null) {
                 def visit = new Visit(browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
@@ -54,6 +56,7 @@ class PageVisitController {
                         if (new SiteVisitRel(site: site, visit: visit).save()) {
                             output += " Site Visit registered."
                         } else {
+                            log.error("Could not register Site Visit")
                             output += " [Error] Could not register Site Visit."
                         }
                     }
@@ -62,6 +65,7 @@ class PageVisitController {
                         if (new SectionVisitRel(section: section, visit: visit).save()) {
                             output += " Section Visit registered."
                         } else {
+                            log.error("Could not register Section Visit")
                             output += " [Error] Could not register Section Visit."
                         }
                     }
@@ -70,16 +74,19 @@ class PageVisitController {
                         if (new PageVisitRel(page: page, visit: visit).save()) {
                             output += " Page Visit registered."
                         } else {
+                            log.error("Could not register Page Visit")
                             output += " [Error] Could not register Page Visit."
                         }
                     }
                 } else {
+                    log.error("Visit did not validate")
                     output += "Visit did not validate..."
                 }
             } else {
                 output += "Site, Section and Page already registered."
             }
         } else {
+            log.error("Could not initalize client")
             output += "Could not initalize client..."
         }
     }
@@ -98,17 +105,14 @@ class PageVisitController {
     }
 
     def getSection(name) {
-        println "NAME: " + name
         if (name == null) {
             return null
         }
         def section = Section.findByName(name)
-        println "SECTION: " + section
         if (section == null) {
             section = new Section(name: name)
             if (validate(section)) {
                 section.save()
-                println "SECIONT2: " + section
                 return section
             } else {
                 return null
@@ -159,6 +163,7 @@ class PageVisitController {
                     errors += '\n' + it
                 }
                 object = null
+                log.error(errors)
                 output += errors + '\n'
                 return false
             }

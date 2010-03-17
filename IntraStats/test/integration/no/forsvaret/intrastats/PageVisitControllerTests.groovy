@@ -18,7 +18,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.params.url = "http://www.testpage1.com"
         pv.request.addHeader("user-agent", "test")
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, Page.count())
         assertEquals(1, Visit.count())
         assertEquals(1, SiteVisitRel.count())
@@ -38,7 +38,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.params.browserWidth = "" + width
         pv.params.browserHeight = height
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, SiteVisitRel.count())
         assertEquals(1, SectionVisitRel.count())
         assertEquals(1, PageVisitRel.count())
@@ -58,7 +58,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.params.url = "http://www.testpage1.com"
         pv.request.addHeader("user-agent", "test")
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, Site.count())
         assertEquals(1, Section.count())
         assertEquals(1, Page.count())
@@ -77,7 +77,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.request.addHeader("user-agent", "test")
         pv.timeOut = 3000 // 3 seconds for timeout
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, Site.count())
         assertEquals(1, Section.count())
         assertEquals(2, Page.count())
@@ -96,7 +96,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.request.addHeader("user-agent", "test")
         pv.timeOut = 0 // 0 seconds for timeout
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, Site.count())
         assertEquals(2, Section.count())
         assertEquals(2, Page.count())
@@ -114,7 +114,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.request.addHeader("user-agent", "test")
         pv.timeOut = 0 // 0 seconds
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(0, Page.count())
         assertEquals(0, Visit.count())
         assertEquals(0, PageVisitRel.count())
@@ -130,7 +130,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.request.addHeader("user-agent", "test")
         pv.timeOut = 0 // 0 seconds
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, Site.count())
         assertEquals(1, Section.count())
         assertEquals(1, Page.count())
@@ -144,7 +144,7 @@ class PageVisitControllerTests extends GrailsUnitTestCase {
         pv.params.url = "http://testpage2.com"
         pv.request.addHeader("user-agent", "test")
         pv.index()
-        println pv.response.contentAsString + '\n'
+        println pv.response.contentAsString
         assertEquals(1, Site.count())
         assertEquals(2, Section.count())
         assertEquals(2, Page.count())
