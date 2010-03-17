@@ -24,13 +24,13 @@ class PageVisitController {
                 log.error("Page was null, unknown reason")
             }
         } else {
-            log.warn("Got a request without valid parameters. Client IP: " + request.getRemoteAddr() + ". URL: " + params.url)
+            log.warn("Got a request without valid parameters. Client IP: " + request.getRemoteAddr() + ". params: " + params.dump())
             output += "Must have valid url (?url=http://www.google.com)"
             output += "\nValid params: site, section, url, title, browserWidth, browserHeight"
         }
         time = System.currentTimeMillis() - time
         output += " TIME: " + time + "ms"
-        log.info(time + "ms + " - output)
+        log.info(time + "ms - " + request.getRemoteAddr() + " - " + output)
         output = params.jsoncallback + "({\"" + output + "\"})"
         response.outputStream << output
     }
@@ -55,18 +55,18 @@ class PageVisitController {
                         section.addToPages(page).save()
                     }
 
-                     if (site != null && siteVisitRel == null) {
+                    if (site != null && siteVisitRel == null) {
                         if (new SiteVisitRel(site: site, visit: visit).save()) {
-                            output += " Site Visit registered."
+                            output += " Site Visit ($site.name) registered."
                         } else {
                             log.error("Could not register Site Visit")
                             output += " [Error] Could not register Site Visit."
                         }
                     }
 
-                     if (section != null && sectionVisitRel == null) {
+                    if (section != null && sectionVisitRel == null) {
                         if (new SectionVisitRel(section: section, visit: visit).save()) {
-                            output += " Section Visit registered."
+                            output += " Section Visit ($section.name) registered."
                         } else {
                             log.error("Could not register Section Visit")
                             output += " [Error] Could not register Section Visit."
@@ -75,7 +75,7 @@ class PageVisitController {
 
                     if (pageVisitRel == null) {
                         if (new PageVisitRel(page: page, visit: visit).save()) {
-                            output += " Page Visit registered."
+                            output += " Page Visit ($page.url) registered."
                         } else {
                             log.error("Could not register Page Visit")
                             output += " [Error] Could not register Page Visit."
