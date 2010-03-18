@@ -93,7 +93,9 @@
     <div id="container">
       <div class="top"></div>
       <div class="middle">
-        <h2>${no.forsvaret.intrastats.Visit.countByDateCreatedGreaterThan(new Date() - 1)} visits today</h2>
+        <h2>${siteVisits} site visits today</h2>
+        <h2>${sectionVisits} section visits today</h2>
+        <h2>${pageVisits} page views today</h2>
         <ul>
           <li style="margin-bottom: -5px;" class="controller"><g:link controller="page">All pages</g:link></li>
           <li style="margin-bottom: 10px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
