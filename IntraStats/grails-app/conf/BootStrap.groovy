@@ -32,6 +32,8 @@ class BootStrap {
                 clients[i] = pv.getClient("Address " + i, "Host " + i, userAgents[(int)(Math.random() * (userAgents.size() - 1))])
             }
 
+            def site = pv.getSite("site")
+
             def p = 0
             def total = 1000
             pv.timeOut = 0
@@ -41,7 +43,7 @@ class BootStrap {
                 def client = clients[(int)(Math.random() * (clients.length ))]
                 
                 if (section != null && page != null && client != null) {
-                    pv.registerVisit(section, page, client, null, i, i)
+                    pv.registerVisit(site, section, page, client, i, i)
                 } else {
                     println "FRAK!"
                 }
