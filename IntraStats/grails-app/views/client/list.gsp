@@ -20,29 +20,17 @@
       <table>
         <thead>
           <tr>
-
-        <g:sortableColumn property="id" title="${message(code: 'client.id.label', default: 'Id')}" />
-
         <g:sortableColumn property="userAgent" title="${message(code: 'client.userAgent.label', default: 'User Agent')}" />
-
         <g:sortableColumn property="remoteAddress" title="${message(code: 'client.remoteAddress.label', default: 'Remote Address')}" />
-
         <g:sortableColumn property="remoteHost" title="${message(code: 'client.remoteHost.label', default: 'Remote Host')}" />
-
         </tr>
         </thead>
         <tbody>
         <g:each in="${clientInstanceList}" status="i" var="clientInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-            <td><g:link action="show" id="${clientInstance.id}">${fieldValue(bean: clientInstance, field: "id")}</g:link></td>
-
-          <td>${fieldValue(bean: clientInstance, field: "userAgent")}</td>
-
-          <td>${fieldValue(bean: clientInstance, field: "remoteAddress")}</td>
-
-          <td>${fieldValue(bean: clientInstance, field: "remoteHost")}</td>
-
+            <td>${fieldValue(bean: clientInstance, field: "userAgent")}</td>
+            <td>${fieldValue(bean: clientInstance, field: "remoteAddress")}</td>
+            <td>${fieldValue(bean: clientInstance, field: "remoteHost")}</td>
           </tr>
         </g:each>
         </tbody>

@@ -36,7 +36,6 @@
       <table>
         <thead>
           <tr>
-        <g:sortableColumn property="id" params="[max: params.max]" title="${message(code: 'page.id.label', default: 'Id')}" />
         <g:sortableColumn property="url"  params="[max: params.max]" title="Url (open in new tab)" />
         <g:sortableColumn property="title"  params="[max: params.max]" title="${message(code: 'page.title.label', default: 'Title')}" />
         <g:sortableColumn property="count(pvr)"  params="[max: params.max]" title="${message(code: 'page.url.label', default: 'Visits')}" />
@@ -46,12 +45,10 @@
         <tbody>
         <g:each in="${pageInstanceList}" status="i" var="pageInstance">
           <tr class="${(i % 2) == 0 ? 'odd' : 'even'}">
-
-            <td>${pageInstance[0]}</td>
-          <td><a href="${pageInstance[1]}" target="_blank">${pageInstance[1]}</a></td>
-          <td>${pageInstance[2]}</td>
-          <td>${pageInstance[4]}</td>
-          <td><g:formatDate date="${pageInstance[3]}" /></td>
+            <td><a href="${pageInstance[1]}" target="_blank">${pageInstance[1]}</a></td>
+            <td>${pageInstance[2]}</td>
+            <td>${pageInstance[4]}</td>
+            <td><g:formatDate date="${pageInstance[3]}" /></td>
           </tr>
         </g:each>
         </tbody>
