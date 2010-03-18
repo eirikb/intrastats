@@ -15,7 +15,6 @@ class PageController {
         def pages = Page.executeQuery("select p.id, p.url, p.title, p.dateCreated, count(pvr)  \
             from PageVisitRel pvr right join pvr.page p" + section + " group by p.id, p.url, p.title, p.dateCreated" + sorting, [max:params.max, offset:params.offset])
         def pageCount = params.id != null ? Page.countBySection(Section.get(params.id)) : Page.count()
-        pages.each() { println Page.get(it[0]).section.id}
         [pageInstanceList: pages, pageInstanceTotal: pageCount]
     }
 }
