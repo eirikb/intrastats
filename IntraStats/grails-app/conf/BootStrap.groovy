@@ -55,8 +55,12 @@ class BootStrap {
             }
 
             Visit.list().each()  {
-                it.setDateCreated(new Date(System.currentTimeMillis() - (long)(Math.random() * (1000L * 60L * 60L * 24L * 32L))))
+                def randomdate = new Date(System.currentTimeMillis() - (long)(Math.random() * (1000L * 60L * 60L * 24L * 32L)))
+                it.setDateCreated(randomdate)
                 it.save()
+                SiteVisitRel.findByVisit(it)?.setDateCreated(randomdate)
+                SectionVisitRel.findByVisit(it)?.setDateCreated(randomdate)
+                PageVisitRel.findByVisit(it)?.setDateCreated(randomdate)
             }
             println "Number of visits: " + Visit.count()
             break
