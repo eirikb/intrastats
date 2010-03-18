@@ -98,7 +98,8 @@
         <h2>${pageVisits} page views today</h2>
         <ul>
           <li style="margin-bottom: -5px;" class="controller"><g:link controller="page">All pages</g:link></li>
-          <li style="margin-bottom: 10px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
+          <li style="margin-bottom: -5px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
+          <li style="margin-bottom: 10px;" class="controller"><g:link controller="client">Clients</g:link></li>
           <g:each in="${sections}" var="section">
             <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name}</g:link></li>
           </g:each>

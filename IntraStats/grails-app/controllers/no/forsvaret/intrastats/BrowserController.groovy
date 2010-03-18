@@ -29,7 +29,7 @@ class BrowserController {
             }
         }
 
-        def browserData = "<graph bgAlpha='0' caption='Browser usage' decimalPrecision='0' formatNumberScale='0'>"
+        def browserData = "<graph bgAlpha='0' caption='Browser usage (based on all registered clients)' decimalPrecision='0' formatNumberScale='0'>"
         def i = 0
         browsers.each() { key, value ->
             if (value[1] > 0) {
@@ -41,6 +41,23 @@ class BrowserController {
             }
         }
         browserData += "</graph>"
-        [browserData: browserData]
+
+        double browserWidth = 0
+        double browserHeight = 0
+        def count = 0
+        SiteVisitRel.executeQuery("select v.browserWidth, v.browserHeight from SiteVisitRel svr left join svr.visit v").each() {
+            if (count == 0) {
+                browserWidth = it[0]
+                browserHeight = it[1]
+            } else {
+                browserWidth += it[0]
+                browserHeight += it[1]
+            }
+            count++
+        }
+        browserWidth /= count
+        browserHeight /= count
+        
+        [browserData: browserData, browserWidth: browserWidth, browserHeight: browserHeight]
     }
 }
