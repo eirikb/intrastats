@@ -42,7 +42,7 @@ class SectionController {
                 }
             }
             def  visitlist = Visit.executeQuery("select v, c from SectionVisitRel svr left join svr.section s left join svr.visit v left join v.client c where s = ? \
-                                                and svr.dateCreated >= ? and svr.dateCreated <= ?", sectionInstance, fromDate, toDate)
+                                                and svr.dateCreated >= ? and svr.dateCreated <= ?", [sectionInstance, fromDate, toDate])
             def browsers = ["MSIE 5.0":["Internet Explorer 5.0", 0],
                             "MSIE 5.5":["Internet Explorer 5.5", 0],
                             "MSIE 6.0":["Internet Explorer 6.0", 0],
