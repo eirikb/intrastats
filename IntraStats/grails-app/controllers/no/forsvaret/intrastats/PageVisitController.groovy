@@ -40,10 +40,16 @@ class PageVisitController {
         if (client != null) {
             def timeOutDate = new Date(new Date().getTime() - timeOut)
 
-            def siteVisitRel = site != null ? SiteVisitRel.findBySiteAndDateCreatedGreaterThan(site, timeOutDate) : null
-            def sectionVisitRel = section != null ? SectionVisitRel.findBySectionAndDateCreatedGreaterThan(section, timeOutDate) : null
-            def pageVisitRel = page != null ? PageVisitRel.findByPageAndDateCreatedGreaterThan(page, timeOutDate) : null
-
+            def siteVisitRel = site != null ?  SiteVisitRel.executeQuery(
+                "select svr from SiteVisitRel svr where svr.site = ? and svr.dateCreated > ? and svr.visit.client = ?",
+                [site, timeOutDate, client])[0]  : null
+            def sectionVisitRel = section != null ?  SectionVisitRel.executeQuery(
+                "select svr from SectionVisitRel svr where svr.section = ? and svr.dateCreated > ? and svr.visit.client = ?",
+                [section, timeOutDate, client])[0]  : null
+            def pageVisitRel = page != null ?  PageVisitRel.executeQuery(
+                "select pvr from PageVisitRel pvr where pvr.page = ? and pvr.dateCreated > ? and pvr.visit.client = ?",
+                [page, timeOutDate, client])[0]  : null
+            
             if (siteVisitRel == null || sectionVisitRel == null || pageVisitRel == null) {
                 def visit = new Visit(browserWidth:browserWidth, browserHeight:browserHeight, page:page, client:client)
                 if (validate(visit)) {
