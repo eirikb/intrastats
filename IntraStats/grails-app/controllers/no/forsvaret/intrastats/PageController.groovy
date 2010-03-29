@@ -17,4 +17,8 @@ class PageController {
         def pageCount = params.id != null ? Page.countBySection(Section.get(params.id)) : Page.count()
         [pageInstanceList: pages, pageInstanceTotal: pageCount]
     }
+
+    def show = {
+        
+    }
 }
