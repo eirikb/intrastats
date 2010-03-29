@@ -45,7 +45,6 @@ class GraphController {
 
             def visits = [:]
             visitlist?.each() {
-                println it
                 def visit = it
                 def day = visit.dateCreated.format("MM-dd")
                 visits[day] = visits[day] == null ? 1 : visits[day] + 1
