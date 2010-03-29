@@ -19,6 +19,6 @@ class PageController {
     }
 
     def show = {
-        
+        [url: Page.get(params.id)?.url]
     }
 }
