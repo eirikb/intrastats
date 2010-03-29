@@ -47,7 +47,7 @@
       #container h2 {
         padding: 0 0 20px 0;
         color: #fff;
-        font-size: 25px;
+        font-size: 22px;
       }
       #container ul {
         padding: 0;
@@ -93,10 +93,11 @@
     <div id="container">
       <div class="top"></div>
       <div class="middle">
-        <h2>${siteVisits} site visits today</h2>
-        <h2>${sectionVisits} section visits today</h2>
-        <h2>${pageVisits} page views today</h2>
+        <h2>Site: ${siteVisits} today, ${siteTotal} total</h2>
+        <h2>Section: ${sectionVisits} Today, ${sectionTotal} total</h2>
+        <h2>Page: ${pageVisits} today, ${pageTotal} total</h2>
         <ul>
+          <li style="margin-bottom: -5px;" class="controller"><g:link controller="page">Site - day by day</g:link></li>
           <li style="margin-bottom: -5px;" class="controller"><g:link controller="page">All pages</g:link></li>
           <li style="margin-bottom: -5px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
           <li style="margin-bottom: 10px;" class="controller"><g:link controller="client">Clients</g:link></li>

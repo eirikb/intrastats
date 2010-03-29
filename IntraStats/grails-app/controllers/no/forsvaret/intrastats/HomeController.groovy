@@ -12,6 +12,7 @@ class HomeController {
         def siteVisits = SiteVisitRel.countByDateCreatedGreaterThan(today)
         def sectionVisits =  SectionVisitRel.countByDateCreatedGreaterThan(today)
         def pageVisits = PageVisitRel.countByDateCreatedGreaterThan(today)
-        [siteVisits: siteVisits, sectionVisits: sectionVisits, pageVisits: pageVisits, sections : Section.list()]
+        [siteVisits: siteVisits, sectionVisits: sectionVisits, pageVisits: pageVisits, sections : Section.list(),
+        siteTotal: Site.count(), sectionTotal: Section.count(), pageTotal: Page.count()]
     }
 }
