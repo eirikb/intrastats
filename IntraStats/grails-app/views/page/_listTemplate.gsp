@@ -21,7 +21,7 @@
         <td>${pageInstance[2]}</td>
         <td>${pageInstance[4]}</td>
         <td><g:formatDate date="${pageInstance[3]}" /></td>
-      <td><g:link action="show" id="${pageInstance[0]}">Show</g:link></td>
+      <td><g:link controller="page" action="show" id="${pageInstance[0]}">Show</g:link></td>
       </tr>
     </g:each>
     </tbody>
