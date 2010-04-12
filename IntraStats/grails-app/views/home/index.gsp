@@ -77,16 +77,6 @@
         -moz-box-shadow: 0 0 10px rgba(0,0,0,0.04);
       }
     </style>
-    <script type="text/javascript">
-    $(function(){
-
-            Cufon.replace('h2, a', {
-                    color: '-linear-gradient(#ffffff, #E9E9E9)',
-                    textShadow: '0 1px #939393'
-            });
-
-    });
-    </script>
   </head>
   <body>
     <h1 id="header">intraStats <g:meta name="app.version"></g:meta></h1>
@@ -102,7 +92,7 @@
           <li style="margin-bottom: -5px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
           <li style="margin-bottom: 10px;" class="controller"><g:link controller="client">Clients</g:link></li>
           <g:each in="${sections}" var="section">
-            <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name}</g:link></li>
+            <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name?.encodeAsHTML()}</g:link></li>
           </g:each>
         </ul>
       </div>
