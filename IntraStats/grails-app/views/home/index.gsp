@@ -1,4 +1,4 @@
-------<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -45,9 +45,9 @@
         background: url(images/content-bg.png) 0 bottom;
       }
       #container h2 {
-        padding: 0 0 20px 0;
-        color: #fff;
-        font-size: 22px;
+        padding: 0 0 5px 0;
+        color: #666666;
+        font-size: 18px;
       }
       #container ul {
         padding: 0;
@@ -65,10 +65,11 @@
         padding: 8px;
         text-decoration: none;
         outline: none;
+        color: #4d4d4d;
       }
       #container ul li a:hover {
         text-decoration: none;
-        background: rgba(255,255,255,0.1);
+        background: #dfdfdf;
         border-radius: 3px;
         -webkit-border-radius: 3px;
         -moz-border-radius: 3px;
@@ -83,13 +84,14 @@
     <div id="container">
       <div class="top"></div>
       <div class="middle">
-        <h2>Site: ${siteVisits} today, ${siteTotal} total</h2>
-        <h2>Section: ${sectionVisits} Today, ${sectionTotal} total</h2>
-        <h2>Page: ${pageVisits} today, ${pageTotal} total</h2>
+        <h2>Site: ${siteVisits} today (${siteTotal} total)</h2>
+        <h2>Section: ${sectionVisits} Today (${sectionTotal} total)</h2>
+        <h2>Page: ${pageVisits} today (${pageTotal} total)</h2>
+        <br />
         <ul>
-          <li style="margin-bottom: -5px;" class="controller"><g:link controller="site" id="1">Site - day by day</g:link></li>
-          <li style="margin-bottom: -5px;" class="controller"><g:link controller="page">All pages</g:link></li>
-          <li style="margin-bottom: -5px;" class="controller"><g:link controller="browser">Browsers</g:link></li>
+          <li class="controller"><g:link controller="site" id="1">Site - day by day</g:link></li>
+          <li class="controller"><g:link controller="page">All pages</g:link></li>
+          <li class="controller"><g:link controller="browser">Browsers</g:link></li>
           <li style="margin-bottom: 10px;" class="controller"><g:link controller="client">Clients</g:link></li>
           <g:each in="${sections}" var="section">
             <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name?.encodeAsHTML()}</g:link></li>
