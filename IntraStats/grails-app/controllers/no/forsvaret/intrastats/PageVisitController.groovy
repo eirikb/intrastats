@@ -1,6 +1,8 @@
 package no.forsvaret.intrastats
 
 import org.codehaus.groovy.grails.commons.*
+import grails.converters.*
+
 
 
 class PageVisitController {
@@ -31,7 +33,7 @@ class PageVisitController {
         time = System.currentTimeMillis() - time
         output += " TIME: " + time + "ms"
         log.info(time + "ms - " + request.getRemoteAddr() + " - " + output)
-        output = params.jsoncallback + "({\"" + output + "\"})"
+        output = params.jsoncallback + "({\"" + ( output as JSON) + "\"})"
         response.outputStream << output
     }
 
