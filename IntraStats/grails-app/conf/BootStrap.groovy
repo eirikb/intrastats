@@ -35,7 +35,7 @@ class BootStrap {
             def site = pv.getSite("site")
 
             def p = 0
-            def total = 1000
+            def total = 100
             pv.timeOut = 0
             for(i in 0..total) {
                 def section = sections[(int)(Math.random() * (sections.length))]
