@@ -1,7 +1,7 @@
 package no.forsvaret.intrastats
 
 import org.codehaus.groovy.grails.commons.*
-import grails.converters.*
+import org.json.simple.JSONObject
 
 
 
@@ -33,10 +33,15 @@ class PageVisitController {
         time = System.currentTimeMillis() - time
         output += " TIME: " + time + "ms"
         log.info(time + "ms - " + request.getRemoteAddr() + " - " + output)
-        output = params.jsoncallback + "({\"" + ( output as JSON) + "\"})"
+        output = params.jsoncallback + '(' + toJSON(output) + ')'
         response.outputStream << output
     }
 
+    def toJSON( toEncode ) {
+        JSONObject obj = new JSONObject()
+        obj.put("return", toEncode);
+        return obj.toString()
+    }
 
     def registerVisit(site, section, page, client, browserWidth, browserHeight) {
         if (client != null) {
