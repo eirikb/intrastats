@@ -28,8 +28,8 @@
   <div class="body" align="center">
     <h1>All browsers</h1>
     <p><b>Browser size (based on site visits):</b></p>
-    <p>Browser width: ${browserWidth}</p>
-    <p>Browser height: ${browserHeight}</p>
+    <p>Browser width: ${(int)browserWidth}</p>
+    <p>Browser height: ${(int)browserHeight}</p>
     <g:if test="${flash.message}">
       <div class="message">${flash.message}</div>
     </g:if>
