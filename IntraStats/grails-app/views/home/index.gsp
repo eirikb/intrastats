@@ -47,7 +47,8 @@
       #container h2 {
         padding: 0 0 5px 0;
         color: #666666;
-        font-size: 18px;
+        font-size: 16px;
+        font-weight: normal;
       }
       #container ul {
         padding: 0;
@@ -92,7 +93,7 @@
           <li class="controller"><g:link controller="site" id="1">Site - day by day</g:link></li>
           <li class="controller"><g:link controller="page">All pages</g:link></li>
           <li class="controller"><g:link controller="browser">Browsers</g:link></li>
-          <li style="margin-bottom: 10px;" class="controller"><g:link controller="client">Clients</g:link></li>
+          <!--<li style="margin-bottom: 10px;" class="controller"><g:link controller="client">Clients</g:link></li>-->
           <g:each in="${sections}" var="section">
             <li class="controller"><g:link controller="section" action="show" id="${section.id}">${section.name?.encodeAsHTML()}</g:link></li>
           </g:each>
